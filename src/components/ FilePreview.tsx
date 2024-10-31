@@ -7,10 +7,12 @@ interface FilePreviewProps {
     name: string;
     url: string;
     type: string;
-  }
+  } | null;
 }
 
 export default function FilePreview({ file }: FilePreviewProps) {
+  if (!file) return null;
+
   return (
     <div className="overflow-hidden rounded-lg border bg-background">
       {file.type.includes('image') ? (

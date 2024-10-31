@@ -41,10 +41,10 @@ export default function FilePage() {
     <div className="container mx-auto py-8 px-4">
       <Card className="max-w-4xl mx-auto">
         <CardContent className="p-6">
-          <h1 className="text-2xl font-bold mb-4">{file.name}</h1>
+          <h1 className="text-2xl font-bold mb-4">{file?.name}</h1>
           
           <div className="grid gap-6">
-            <FilePreview file={file} />
+            <FilePreview file={file ?? null} />
           </div>
         </CardContent>
       </Card>

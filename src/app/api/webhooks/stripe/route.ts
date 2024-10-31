@@ -1,6 +1,7 @@
 import { db } from "@/lib/db/index";
 import { subscriptions } from "@/lib/db/schema/subscriptions";
 import { stripe } from "@/lib/stripe/index";
+import crypto from "crypto";
 import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import type Stripe from "stripe";
@@ -60,7 +61,11 @@ export async function POST(request: Request) {
       } else {
         await db
           .insert(subscriptions)
-          .values({ ...updatedData, userId: session.metadata.userId });
+          .values({ 
+            ...updatedData, 
+            userId: session.metadata.userId,
+            id: crypto.randomUUID()
+          });
       }
 
     } else if (

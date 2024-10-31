@@ -1,6 +1,5 @@
 "use client";
 
-import type { TFile } from "@/@types/file";
 import { Button } from "@/components/ui/button";
 import type { ColumnDef } from "@tanstack/react-table";
 import dayjs from "dayjs";
@@ -10,7 +9,7 @@ import { toast } from "sonner";
 import { Checkbox } from "@/components/ui/checkbox";
 import { CellAction } from "./cell-action";
 
-export const columns: ColumnDef<TFile>[] = [
+export const columns: ColumnDef<any>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -67,7 +66,7 @@ export const columns: ColumnDef<TFile>[] = [
     header: "TAGS",
     cell: ({ row }) => (
       <div className="flex flex-wrap gap-1">
-        {row.original.tags?.map((tag) => (
+        {row.original?.tags?.map((tag: any) => (
           <span
             key={tag.id}
             className="bg-secondary text-secondary-foreground px-2 py-1 rounded-md text-xs"

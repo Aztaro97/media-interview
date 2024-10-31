@@ -1,12 +1,11 @@
 "use client";
 
-import { Tag } from "@/@types/tag";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ColumnDef } from "@tanstack/react-table";
 import dayjs from "dayjs";
 import { TagCellAction } from "./cell-action";
 
-export const columns: ColumnDef<Tag>[] = [
+export const columns: ColumnDef<any>[] = [
   {
     id: "select",
     header: ({ table }) => (

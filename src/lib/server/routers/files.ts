@@ -135,38 +135,7 @@ export const filesRouter = router({
       return file[0];
     }),
 
-  // Add tags to a file
-  addTags: protectedProcedure
-    .input(z.object({
-      fileId: z.string(),
-      tagIds: z.array(z.string()),
-    }))
-    .mutation(async ({ input }) => {
-      
-      // Verify file ownership
-      const fileExists = await db.query.files.findFirst({
-        where: and(
-          eq(files.id, input.fileId),
-        ),
-      });
-
-      if (!fileExists) {
-        throw new TRPCError({
-          code: 'NOT_FOUND',
-          message: 'File not found or access denied',
-        });
-      }
-
-      // Insert file tags
-      const fileTagsData = input.tagIds.map(tagId => ({
-        fileId: input.fileId,
-        tagId,
-      }));
-
-      await db.insert(fileTags).values(fileTagsData);
-      return true;
-    }),
-
+  
   // Get file by ID (public access for sharing)
   getById: publicProcedure
     .input(z.object({
@@ -248,38 +217,5 @@ export const filesRouter = router({
       return deleted[0];
     }),
 
-  // Get file statistics
-  getStats: protectedProcedure
-    .input(z.object({
-      id: z.string(),
-    }))
-    .query(async ({ input }) => {
-
-      const viewsCount = await db
-        .select({ count: sql<number>`count(*)` })
-        .from(fileViews)
-        .where(eq(fileViews.fileId, input.id))
-        .then(res => res[0].count);
-
-      const file = await db.query.files.findFirst({
-        where: and(
-          eq(files.id, input.id),
-        ),
-        with: {
-          tags: true,
-        },
-      });
-
-      if (!file) {
-        throw new TRPCError({
-          code: 'NOT_FOUND',
-          message: 'File not found or access denied',
-        });
-      }
-
-      return {
-        file,
-        viewsCount,
-      };
-    }),
+  
 });

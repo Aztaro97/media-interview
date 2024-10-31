@@ -15,7 +15,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 interface TagCellActionProps {
-  data: Tag;
+  data: any;
 }
 
 export const TagCellAction: React.FC<TagCellActionProps> = ({ data }) => {

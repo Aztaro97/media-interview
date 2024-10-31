@@ -5,8 +5,8 @@ import { usePathname } from "next/navigation";
 
 import { LucideIcon } from "lucide-react";
 
+import { additionalLinks, defaultLinks } from "@/config/nav";
 import { cn } from "@/lib/utils";
-import { defaultLinks, additionalLinks } from "@/config/nav";
 
 export interface SidebarLink {
   title: string;
@@ -19,7 +19,7 @@ const SidebarItems = () => {
     <>
       <SidebarLinkGroup links={defaultLinks} />
       {additionalLinks.length > 0
-        ? additionalLinks.map((l) => (
+        ? additionalLinks.map((l: any) => (
             <SidebarLinkGroup
               links={l.links}
               title={l.title}
